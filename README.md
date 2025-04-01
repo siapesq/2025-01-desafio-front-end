@@ -7,7 +7,7 @@
 ## Desafio: Construção de uma Aplicação Interativa com React e Next.js
 ## Objetivo:
 
-Desenvolver uma aplicação web utilizando React, Next.js, Tailwind CSS ou Styled Components e TypeScript, focando na criação de telas responsivas, dinâmicas e intuitivas, aplicando conceitos de UI/UX.
+Desenvolver uma aplicação web utilizando React, Next.js, Tailwind CSS e TypeScript, focando na criação de telas responsivas, dinâmicas e intuitivas, aplicando conceitos de UI/UX.
 ## Requisitos:
 
 Criar pelo menos quatro telas:
