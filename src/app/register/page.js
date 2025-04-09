@@ -1,10 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import { register, login } from '../../services/authService'
 
 export default function RegisterPage() {
+  const router = useRouter();
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -65,26 +67,20 @@ export default function RegisterPage() {
     }
 
     try {
-        await register(form);
+        await register({
+          name: form.name,
+          email: form.email,
+          password: form.password
+        });
         setMsg('Conta criada com sucesso! Redirecionando...');
         setMsgType('success');
 
         await login(form.email, form.password);
         router.push('/dashboard');
-    } catch {
+    } catch (err) {
       setMsg(err.message);
       setMsgType('error');
     }
-
-    const res = await fetch('/api/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-    });
-
-    const data = await res.json();
-    setMsg(data.message);
-    setMsgType(res.ok ? 'success' : 'error');
   };
 
   return (
