@@ -4,14 +4,65 @@ import { useState } from 'react';
 import Link from "next/link"
 
 export default function RegisterPage() {
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    termsAccepted: false
+  });
   const [msg, setMsg] = useState('');
   const [msgType, setMsgType] = useState('');
 
-  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = e => {
+    const { name, value, type, checked } = e.target;
+    setForm(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!form.name || !form.email || !form.password || !form.confirmPassword) {
+      setMsg('Todos os campos são obrigatórios.');
+      setMsgType('error');
+      return;
+    }
+
+    if (form.name.trim().split(' ').length < 2) {
+      setMsg('Por favor, insira seu nome completo.');
+      setMsgType('error');
+      return;
+    }
+
+    if (!emailRegex.test(form.email)) {
+      setMsg('Por favor, insira um e-mail válido.');
+      setMsgType('error');
+      return;
+    }
+
+    if (form.password.length < 8) {
+      setMsg('A senha deve ter pelo menos 8 caracteres.');
+      setMsgType('error');
+      return;
+    }
+
+    if (form.password !== form.confirmPassword) {
+      setMsg('As senhas não coincidem.');
+      setMsgType('error');
+      return;
+    }
+
+    if (!form.termsAccepted) {
+      setMsg('Você precisa aceitar os termos de serviço e a política de privacidade.');
+      setMsgType('error');
+      return;
+    }
+
     const res = await fetch('/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -31,7 +82,7 @@ export default function RegisterPage() {
         </div>
         
         <div className="p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} noValidate className="space-y-6">
             <div className="space-y-2">
               <label htmlFor="name" className="text-sm font-medium text-gray-700">Nome</label>
               <input 
@@ -70,13 +121,24 @@ export default function RegisterPage() {
               />
               <p className="text-xs text-gray-500">A senha deve ter pelo menos 8 caracteres</p>
             </div>
+
+            <div className="space-y-2">
+              <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">Confirmar senha</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirme sua senha"
+                onChange={handleChange}
+                className="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
+              />
+            </div>
             
             <div className="flex items-center">
               <input 
                 id="terms" 
-                name="terms" 
+                name="termsAccepted" 
                 type="checkbox"
-                required
+                onChange={handleChange}
                 className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
               />
               <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">

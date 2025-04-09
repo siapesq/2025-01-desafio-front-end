@@ -21,8 +21,8 @@ export default function LoginPage() {
 
     const data = await res.json();
     if (res.ok) {
-      localStorage.setItem('token', data.token); // armazena token
-      router.push('/dashboard'); // redireciona para página protegida
+      localStorage.setItem('token', data.token); 
+      router.push('/dashboard'); 
     } else {
       setMsg(data.message);
     }
