@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import Link from "next/link"
+import Link from "next/link";
+import { register, login } from '../../services/authService'
 
 export default function RegisterPage() {
   const [form, setForm] = useState({
@@ -61,6 +62,18 @@ export default function RegisterPage() {
       setMsg('Você precisa aceitar os termos de serviço e a política de privacidade.');
       setMsgType('error');
       return;
+    }
+
+    try {
+        await register(form);
+        setMsg('Conta criada com sucesso! Redirecionando...');
+        setMsgType('success');
+
+        await login(form.email, form.password);
+        router.push('/dashboard');
+    } catch {
+      setMsg(err.message);
+      setMsgType('error');
     }
 
     const res = await fetch('/api/register', {

@@ -2,29 +2,27 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from "next/link"
+import Link from "next/link";
+import { login } from '../../services/authService'
 
 export default function LoginPage() {
   const [form, setForm] = useState({ email: '', password: '' });
   const [msg, setMsg] = useState('');
   const router = useRouter();
 
-  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = e => setForm({ 
+    ...form, [e.target.name]: e.target.value 
+  });
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const res = await fetch('/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-    });
 
-    const data = await res.json();
-    if (res.ok) {
+    try {
+      const data = await login(form.email, form.password);
       localStorage.setItem('token', data.token); 
-      router.push('/dashboard'); 
-    } else {
-      setMsg(data.message);
+      router.push('/dashboard');
+    } catch (error) {
+      setMsg(error.message); 
     }
   };
 
