@@ -17,12 +17,24 @@ export default function LoginPage() {
   const handleSubmit = async e => {
     e.preventDefault();
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!form.email || !form.password ) {
+      setMsg('Todos os campos são obrigatórios.');
+      return;
+    }
+
+    if (!emailRegex.test(form.email)) {
+      setMsg('Por favor, insira um e-mail válido.');
+      return;
+    }
+
     try {
       const data = await login(form.email, form.password);
       localStorage.setItem('token', data.token); 
       router.push('/dashboard');
     } catch (error) {
-      setMsg(error.message); 
+      setMsg(error.message || 'Erro ao fazer login. Verifique suas credenciais.'); 
     }
   };
 
@@ -34,7 +46,7 @@ export default function LoginPage() {
         </div>
 
         <div className="p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} noValidate className="space-y-6">
             <div className="space-y-2">
               <label htmlFor="email" className="text-sm font-medium text-gray-700">
                 Email
