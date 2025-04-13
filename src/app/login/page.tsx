@@ -10,8 +10,8 @@ export default function LoginPage() {
             <form
                 action={signIn}
                 className="
-                    mx-auto flex w-md flex-col gap-y-3 items-center rounded-xl px-8 py-12 outline
-                    bg-white shadow-lg outline-black/5
+                    mx-auto flex w-md flex-col gap-y-3 items-center rounded-xl px-8 py-12 
+                    outline bg-white shadow-lg outline-black/5
                     dark:bg-gray-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10
                 "
             >
