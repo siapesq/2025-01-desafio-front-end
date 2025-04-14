@@ -1,11 +1,12 @@
 "use client"
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
 import { getSpeciesByKingdom } from "../../services/speciesService";
 import { Rabbit, Leaf, Flower2, Droplets, BugIcon as Bacteria, Atom } from "lucide-react";
+import { isAuthenticated } from "../../services/authService";
 
 const kingdoms = [
   {
@@ -54,6 +55,15 @@ const kingdoms = [
 
 export default function Dashboard() {
   const router = useRouter();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const authenticated = await isAuthenticated();
+      if (!authenticated) router.push("/login");
+    };
+  
+    checkAuth();
+  }, []);  
 
   async function handleClick(kingdom) {
     const species = await getSpeciesByKingdom(kingdom);
