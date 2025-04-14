@@ -1,15 +1,6 @@
+import { formatDate, formatName } from "@/services/occurrence_helper";
 import { Occurrence } from "@/services/occurrences_api"
 import Link from "next/link";
-
-function formatDate(date: string) {
-    const formated = date.slice(0, 10).split('-').reverse().join('/');
-    return formated;
-}
-
-function formatName(sName: string) {
-    const formated = sName.split(' ').slice(0,2).join(' ').replaceAll(',', '');
-    return formated;
-}
 
 const kingdoms: {[id: string] : string} = {
     'Animalia': 'outline-yellow-500 bg-yellow-200/25', // 1
@@ -18,8 +9,6 @@ const kingdoms: {[id: string] : string} = {
     'Plantae': 'outline-green-600 bg-green-300/25', // 6
     'Protozoa': 'outline-blue-600 bg-blue-300/25' // 7
 }
-
-
 
 export default function OcurrenceCard(
     { occ }: { occ: Occurrence }

@@ -26,6 +26,8 @@ export type OccurrenceDetail = {
     decimalLatitude: number,
     decimalLongitude: number,
     taxonomicStatus: string,
+    continent: string,
+    country: string
 
 }
 
@@ -71,6 +73,8 @@ export async function GetOccurrenceByGbifID(gbifId: string) : Promise<Occurrence
                 decimalLatitude: result.decimalLatitude,
                 decimalLongitude: result.decimalLongitude,
                 taxonomicStatus: result.taxonomicStatus,
+                continent: result.continent,
+                country: result.country
             } as OccurrenceDetail));
 
     return response
