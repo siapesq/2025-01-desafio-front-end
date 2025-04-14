@@ -37,6 +37,7 @@ export default function LoginPage() {
     try {
       const data = await login(form.email, form.password);
       localStorage.setItem('token', data.token); 
+      localStorage.setItem('user', JSON.stringify(data.user)); 
       router.push('/dashboard');
     } catch (error) {
       setMsg(error.message || 'Erro ao fazer login. Verifique suas credenciais.'); 

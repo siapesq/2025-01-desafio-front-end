@@ -15,7 +15,15 @@ export async function POST(req) {
 
     const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, { expiresIn: "1h" });
 
-    return new Response(JSON.stringify({ token }), { status: 200 });
+    return new Response(JSON.stringify({
+      token,
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+      }
+    }), { status: 200 });
+    
   } catch (error) {
     return new Response(JSON.stringify({ message: "Erro no servidor" }), { status: 500 });
   }

@@ -26,6 +26,7 @@ export async function login(email, password) {
 
 export function logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('token');
 }
   
 export function isAuthenticated() {
