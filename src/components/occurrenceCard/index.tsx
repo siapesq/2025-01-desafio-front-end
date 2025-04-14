@@ -1,4 +1,5 @@
 import { Occurrence } from "@/services/occurrences_api"
+import Link from "next/link";
 
 function formatDate(date: string) {
     const formated = date.slice(0, 10).split('-').reverse().join('/');
@@ -24,12 +25,14 @@ export default function OcurrenceCard(
     { occ }: { occ: Occurrence }
 ) {
     return (
-        <div className="
+        <Link 
+            className="
                 grow shrink-0 basis-[15%] mx-3
                 rounded-md overflow-hidden
                 outline bg-white shadow-lg outline-black/5
                 dark:bg-gray-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10
             "
+            href={"/details/" + occ.gbifID.toString()}
         >
             <img className="object-cover object-center w-full h-50" src={occ.media[0].identifier} />
             <div className="p-3">
@@ -38,6 +41,6 @@ export default function OcurrenceCard(
                 <span className={`text-sm float-right outline px-3 rounded-xl ${kingdoms[occ.kingdom]}`}>{occ.kingdom}</span>
                 <div className="clear-both"></div>
             </div>
-        </div>
+        </Link>
     )
 }
