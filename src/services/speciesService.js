@@ -1,15 +1,15 @@
 const API_URL = 'https://api.gbif.org/v1/species';
 
 export async function getSpeciesByName(query) {
-    try {
-        const res = await fetch(`${API_URL}/search?q=${encodeURIComponent(query)}`);
-        if (!res.ok) throw new Error('Erro ao buscar espécies');
-        const data = await res.json();
-        return data.results;
-    } catch (error) {
-        console.error('Erro na busca de espécies:', error);
-        return [];
-    }
+  try {
+    const res = await fetch(`${API_URL}/search?q=${encodeURIComponent(query)}`);
+    if (!res.ok) throw new Error('Erro ao buscar espécies');
+    const data = await res.json();
+    return data.results;
+  } catch (error) {
+    console.error('Erro na busca de espécies:', error);
+    return [];
+  }
 }
 
 const kingdomTaxonKeys = {
@@ -46,13 +46,13 @@ export async function getSpeciesByKingdom(kingdomName) {
   
 
 export async function getSpecieById(specieId) {
-    try {
-        const res = await fetch(`${API_URL}/${specieId}`);
-        if (!res.ok) throw new Error('Erro ao buscar detalhes da espécie');
-        return await res.json();
-    } catch (error) {
-        console.error('Erro ao buscar detalhes da espécie:', error);
-        return null;
-    }
+  try {
+    const res = await fetch(`${API_URL}/${specieId}`);
+    if (!res.ok) throw new Error('Erro ao buscar detalhes da espécie');
+    return await res.json();
+  } catch (error) {
+    console.error('Erro ao buscar detalhes da espécie:', error);
+    return null;
+  }
 }
 
