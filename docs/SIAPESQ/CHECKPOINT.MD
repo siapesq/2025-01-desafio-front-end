@@ -10,7 +10,7 @@
 ## 2️⃣ Desenvolvimento das Telas Base
 - [x] Criar layout base compartilhado
 - [x] Desenvolver tela de login
-- [ ] Desenvolver tela de registro
+- [x] Desenvolver tela de registro
 - [ ] Implementar responsividade básica
 - [x] Adicionar validações de formulários
 
