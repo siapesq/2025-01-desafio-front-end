@@ -1,7 +1,5 @@
 # BioDiversa - Catálogo de Espécies
 
-![BioDiversa Logo](public/favicon.svg)
-
 BioDiversa é um sistema de catálogo digital de espécies, dedicado à preservação e documentação da biodiversidade global. A plataforma permite aos usuários explorar, pesquisar e visualizar informações detalhadas sobre diferentes espécies organizadas por reinos biológicos.
 
 ## 🌿 Sobre o Projeto
