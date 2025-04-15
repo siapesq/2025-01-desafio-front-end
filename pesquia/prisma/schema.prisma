@@ -21,10 +21,11 @@ model User {
   email         String          @unique
   emailVerified DateTime?
   image         String?
+  enterprise    enterprise[]
   accounts      Account[]
   sessions      Session[]
-  // Optional for WebAuthn support
-  Authenticator Authenticator[]
+
+
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -69,18 +70,21 @@ model VerificationToken {
   @@id([identifier, token])
 }
  
-// Optional for WebAuthn support
-model Authenticator {
-  credentialID         String  @unique
-  userId               String
-  providerAccountId    String
-  credentialPublicKey  String
-  counter              Int
-  credentialDeviceType String
-  credentialBackedUp   Boolean
-  transports           String?
- 
+
+model enterprise {
+  id            String          @id @default(cuid())
+  userId        String
+  name          String
+  cnpj          String
+  email         String?
+  phone         String?
+  address       String
+  cidade        String?
+  city          String?
+  cep           String
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
-  @@id([userId, credentialID])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
