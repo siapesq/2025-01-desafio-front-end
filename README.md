@@ -1,47 +1,45 @@
-<div align="center">  
-  <img src="https://github.com/user-attachments/assets/2acc5cab-7ec9-4cc6-a3fc-1fe80eceee73" alt="logo" style="width:100px"></img>
-</div>
+# BioDiversa - Catálogo de Espécies
 
-## Desafio Estagiarios Frontend
+![BioDiversa Logo](public/favicon.svg)
 
-## Desafio: Construção de uma Aplicação Interativa com React e Next.js
-## Objetivo:
+BioDiversa é um sistema de catálogo digital de espécies, dedicado à preservação e documentação da biodiversidade global. A plataforma permite aos usuários explorar, pesquisar e visualizar informações detalhadas sobre diferentes espécies organizadas por reinos biológicos.
 
-Desenvolver uma aplicação web utilizando React, Next.js, Tailwind CSS e TypeScript, focando na criação de telas responsivas, dinâmicas e intuitivas, aplicando conceitos de UI/UX.
-## Requisitos:
+## 🌿 Sobre o Projeto
 
-Criar pelo menos quatro telas:
-Tela de login - Uma página de login
+O BioDiversa foi desenvolvido com o objetivo de proporcionar uma plataforma educativa e informativa sobre a diversidade biológica. O sistema cataloga espécies de todos os reinos (Animalia, Plantae, Fungi, Protista, Bacteria e Archaea), oferecendo dados taxonômicos, descrições, habitats, status de conservação e muito mais.
 
-Tela de registro - Uma página com form para criar usuário
+## 🚀 Tecnologias Utilizadas
 
-Tela inicial – Uma página de apresentação com um breve resumo sobre o conteúdo da aplicação.
+O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
-Tela de informações – Exibe dados obtidos de uma API externa (exemplos: GBIF API, PokéAPI, ou outra de sua escolha).
+- **[Next.js](https://nextjs.org/)**: Framework React com renderização do lado do servidor
+- **[React](https://reactjs.org/)**: Biblioteca JavaScript para construção de interfaces
+- **[Tailwind CSS](https://tailwindcss.com/)**: Framework CSS utilitário para design responsivo
+- **[Lucide React](https://lucide.dev/)**: Biblioteca de ícones para React
+- **[JavaScript (ES6+)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)**: Linguagem de programação
+- **[LocalStorage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)**: Para armazenamento de dados no cliente
 
-Implementar navegação entre as páginas utilizando Next.js.
+## ✨ Funcionalidades
 
-Garantir que a aplicação seja responsiva e tenha um design intuitivo.
+- **Autenticação de Usuários**: Sistema de login e registro seguro
+- **Exploração por Reino**: Visualização de espécies organizadas por reinos biológicos
+- **Pesquisa Avançada**: Busca por nome científico ou nome comum
+- **Visualização Detalhada**: Página dedicada com informações completas sobre cada espécie
+- **Responsividade**: Interface adaptável para diferentes dispositivos
+- **Design Intuitivo**: Interface amigável com navegação simplificada
 
-Utilizar boas práticas de organização de código e componentes.
+## 🔧 Instalação e Execução
 
-## Adicional opcional
-Desenvolver as rotas de login e registro e realizar a integração com as telas
+Para instalar e executar o projeto localmente, siga os passos abaixo:
 
-- Pode usar o next como backend ou implementar separado, sua decisão
-  
-## O que será avaliado:
-✅ Habilidade em criar telas responsivas e intuitivas 🖥️📱
-✅ Uso correto da navegação entre páginas no Next.js 🔄
-✅ Organização do código e estrutura do projeto 📂
-✅ Criatividade e design das telas 🎨
+# Clone o repositório
+git clone https://github.com/seu-usuario/biodiversa.git
 
-## Dicas para se destacar:
-Capriche na experiência do usuário, garantindo uma navegação fluida e acessível.
+# Acesse o diretório do projeto
+cd biodiversa
 
-Pense no design das telas para criar uma identidade visual coerente e atraente.
+# Instale as dependências
+npm install
 
-Otimize o carregamento dos dados da API para melhorar a performance.
-
-Utilize animações e interações sutis para tornar a interface mais envolvente.
-    
+# Inicie o servidor de desenvolvimento
+npm run dev
