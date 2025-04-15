@@ -16,9 +16,9 @@ const kingdomTaxonKeys = {
   Animalia: 1,
   Plantae: 6,
   Fungi: 5,
-  Protista: 3,
-  Bacteria: 2,
-  Archaea: 0
+  Protozoa: 7,
+  Bacteria: 3,
+  Archaea: 2
 };
   
 export async function getSpeciesByKingdom(kingdomName) {

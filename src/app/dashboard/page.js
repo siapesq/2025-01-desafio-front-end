@@ -31,9 +31,10 @@ const kingdoms = [
     bgLight: "bg-purple-50",
   },
   {
-    name: "Protista",
+    name: "Protozoa",
     icon: Droplets,
-    description: "Reino dos protozoários e algas, principalmente unicelulares.",
+    description: "Reino dos organismos que podem se locomover por cílios, flagelos ou pseudópodes.",
+    color: "from-blue-500 to-cyan-600",
     color: "from-blue-500 to-cyan-600",
     bgLight: "bg-blue-50",
   },
@@ -57,18 +58,17 @@ export default function Dashboard() {
   const router = useRouter();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const authenticated = await isAuthenticated();
-      if (!authenticated) router.push("/login");
-    };
-  
-    checkAuth();
-  }, []);  
+    if (!isAuthenticated()) {
+      router.push("/login");
+    }
+  }, []);
 
   async function handleClick(kingdom) {
     const species = await getSpeciesByKingdom(kingdom);
     localStorage.setItem("specieItem", JSON.stringify(species));
     localStorage.setItem("kingdomItem", kingdom);
+
+    console.log(species);
 
     router.push("/species");
   }
