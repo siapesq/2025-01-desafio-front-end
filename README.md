@@ -43,12 +43,54 @@ As tecnologias utilizadas são:
  - React Hook Form: Gerenciamento avançado de formulários
  - Zod: Validação de dados type-safe
 
+ ### 🏗 Arquitetura do Projeto
+```
+
+    └── pesquia/
+        ├── {} components.json
+        ├── 🛠️ eslint.config.mjs
+        ├── 🛠️ next.config.ts
+        ├── {} package-lock.json
+        ├── {} package.json
+        ├── 🛠️ postcss.config.mjs
+        ├── 🛠️ tailwind.config.js
+        ├── {} tsconfig.json
+        ├── .env-sample
+        ├── 📁app/
+        │   ├── globals.css
+        │   ├── layout.tsx
+        │   ├── page.tsx
+        │   ├── 📁api/
+        │   │   └── 📁auth/
+        │   │       └── [...nextauth]/
+        │   │           └── route.ts
+        │   └── 📁auth/
+        │       ├── cadastro/
+        │       │   └── ⚛ page.tsx
+        │       └── login/
+        │           └── ⚛ page.tsx
+        ├── 📁components/
+        │   ├── auth/
+        │   │   └── ⚛ login-form.tsx
+        │   └── ui/
+        │       ├── ⚛ button.tsx
+        ├── 📁lib/
+        │   ├── 🇹 auth.ts
+        │   ├── 🇹 gemini.ts
+        │   ├── 🇹 getQueryClient.ts
+        │   └── 🇹 utils.ts
+        ├── 📁prisma/
+        │   ├── schema.prisma
+        │   └── migrations/
+        ├── 📁providers/
+        │   └── providers.tsx
+        └── 📁schemas/
+            └── 🇹 login-schema.ts
+```
+
 ## Autenticação e Segurança
  - Auth.js: Sistema de autenticação
 
-### 🏗 Arquitetura do Projeto
-```
-```
 
 ## ⚙️ Instalação e Configuração
 
