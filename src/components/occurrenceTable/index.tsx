@@ -2,6 +2,7 @@
 import { Suspense, SyntheticEvent, useRef, useState } from 'react'
 import { Occurrence, GetOccurrences } from '@/services/occurrences_api';
 import OccurrenceTableGroup from '@/components/occurrenceTableGroup';
+import Loading from '@/components/occurrenceTableGroup/loading';
 
 export default function OccurrenceTable() {
     const [lim, setLim] = useState(20)
@@ -21,7 +22,7 @@ export default function OccurrenceTable() {
             setLim(lim+20)
             setTimeout(() => {
                 canLoad.current = true
-            }, 500)
+            }, 1000)
         }
     }
 
@@ -33,7 +34,7 @@ export default function OccurrenceTable() {
             <Suspense fallback={
                 <>
                     <OccurrenceTableGroup occurrences={old} />
-                    <div>Loading...</div>
+                    <Loading />
                 </>
             } >
                 <OccurrenceTableGroup occurrences={occurs} />
