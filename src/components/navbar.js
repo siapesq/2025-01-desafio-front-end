@@ -41,12 +41,25 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16">
                     <div className="flex items-center">
-                        <Link href="/" className="flex items-center space-x-2">
-                            <div className="w-10 h-10 bg-gradient-to-r from-green-600 to-teal-500 rounded-full flex items-center justify-center">
-                                <span className="text-white font-bold text-lg">B</span>
-                            </div>
-                            <h1 className="text-xl font-bold text-green-800">BioDiversa</h1>
-                        </Link>
+                        {isLoggedIn ? (
+                            <>
+                            <Link href="/dashboard" className="flex items-center space-x-2">
+                                <div className="w-10 h-10 bg-gradient-to-r from-green-600 to-teal-500 rounded-full flex items-center justify-center">
+                                    <span className="text-white font-bold text-lg">B</span>
+                                </div>
+                                <h1 className="text-xl font-bold text-green-800">BioDiversa</h1>
+                            </Link>
+                            </>
+                        ) : (
+                            <>
+                            <Link href="/" className="flex items-center space-x-2">
+                                <div className="w-10 h-10 bg-gradient-to-r from-green-600 to-teal-500 rounded-full flex items-center justify-center">
+                                    <span className="text-white font-bold text-lg">B</span>
+                                </div>
+                                <h1 className="text-xl font-bold text-green-800">BioDiversa</h1>
+                            </Link>
+                            </>
+                        )}
                     </div>
 
                     <div className="hidden md:flex items-center space-x-4">
