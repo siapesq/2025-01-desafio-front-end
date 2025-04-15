@@ -1,47 +1,125 @@
-<div align="center">  
-  <img src="https://github.com/user-attachments/assets/2acc5cab-7ec9-4cc6-a3fc-1fe80eceee73" alt="logo" style="width:100px"></img>
-</div>
+# PesquIA - Desafio SIAPESQ
 
-## Desafio Estagiarios Frontend
+## 📖 Sobre o Projeto
+O **pesquIA** é um sistema ERP focado no segmento de pescaria, permitindo o gerenciamento de produtos e operações de compra e venda. Seu diferencial reside na integração com um módulo de inteligência artificial que monitora e analisa os processos, identificando falhas e sugerindo melhorias para otimização contínua dos processos empresariais.
 
-## Desafio: Construção de uma Aplicação Interativa com React e Next.js
-## Objetivo:
 
-Desenvolver uma aplicação web utilizando React, Next.js, Tailwind CSS e TypeScript, focando na criação de telas responsivas, dinâmicas e intuitivas, aplicando conceitos de UI/UX.
-## Requisitos:
+## 🛠️ Stack Tecnológica Principal
 
-Criar pelo menos quatro telas:
-Tela de login - Uma página de login
+Este projeto foi desenvolvido utilizando tecnologias modernas para criar uma aplicação web robusta e escalável:
 
-Tela de registro - Uma página com form para criar usuário
+- **Next.js**: Framework React para renderização híbrida e otimização de performance
+- **shadcn/UI**: Biblioteca de componentes reutilizáveis e personalizáveis
+- **Auth.js**: Sistema completo de autenticação e gerenciamento de sessões
+- **Google Gemini**: API de inteligência artificial para recursos generativos
+- **TypeScript**: Tipagem estática para desenvolvimento mais seguro
+- **Prisma**: ORM para interação com banco de dados
 
-Tela inicial – Uma página de apresentação com um breve resumo sobre o conteúdo da aplicação.
+A combinação destas tecnologias permite uma experiência de usuário fluida com funcionalidades avançadas de IA integradas ao core do sistema.
 
-Tela de informações – Exibe dados obtidos de uma API externa (exemplos: GBIF API, PokéAPI, ou outra de sua escolha).
+### Stack do Projeto
 
-Implementar navegação entre as páginas utilizando Next.js.
+Este projeto é uma aplicação web que utiliza **Next.js**, um framework React focado em renderização do lado servidor e funcionalidades modernas de desenvolvimento web.
 
-Garantir que a aplicação seja responsiva e tenha um design intuitivo.
+As tecnologias utilizadas são:
 
-Utilizar boas práticas de organização de código e componentes.
+| **Tecnologia**        | **Versão**       |
+|-----------------------|------------------|
+| **Runtime**           |                  |
+| Node.js               | v18.x.x          |
+| **Framework**         |                  |
+| Next.js               | v15.x.x          |
+| **Banco de Dados**    |                  |
+| prisma                | v5.x.x           |
+| **Devtime**           |                  |
+| npm                   | v9.x.x           |
 
-## Adicional opcional
-Desenvolver as rotas de login e registro e realizar a integração com as telas
+## 🚀 Características Principais
+##  Arquitetura e Padrões
+ - Arquitetura Moderna: Utiliza App Router do Next.js 15
+ - Server Components: Maximiza performance com React Server Components
+ - API Routes: Sistema de rotas API integrado
+ - TypeScript: Tipo seguro em toda a base de código
+ - React Hook Form: Gerenciamento avançado de formulários
+ - Zod: Validação de dados type-safe
 
-- Pode usar o next como backend ou implementar separado, sua decisão
-  
-## O que será avaliado:
-✅ Habilidade em criar telas responsivas e intuitivas 🖥️📱
-✅ Uso correto da navegação entre páginas no Next.js 🔄
-✅ Organização do código e estrutura do projeto 📂
-✅ Criatividade e design das telas 🎨
+## Autenticação e Segurança
+ - Auth.js: Sistema de autenticação
 
-## Dicas para se destacar:
-Capriche na experiência do usuário, garantindo uma navegação fluida e acessível.
+### 🏗 Arquitetura do Projeto
+```
+```
 
-Pense no design das telas para criar uma identidade visual coerente e atraente.
+## ⚙️ Instalação e Configuração
 
-Otimize o carregamento dos dados da API para melhorar a performance.
+Para rodar o projeto localmente, siga os passos abaixo:
 
-Utilize animações e interações sutis para tornar a interface mais envolvente.
-    
+1. Clone o repositório:
+
+   ```bash
+   git clone https://github.com/usuario/repositorio-sample.git
+   cd repositorio-sample
+   ```
+
+2. Instale as dependências:
+
+   ```bash
+   npm install
+   ```
+
+3. Configure o arquivo `.env` na raiz do projeto com suas credenciais use o arquivo `env-example`
+
+4. Inicie o ambiente de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
+   ou
+   ```bash
+   yarn dev
+   ```
+
+   > O servidor será iniciado em modo de desenvolvimento com hot-reload
+
+5. Visualize o Homepage:
+   ```
+   http://localhost:3000/
+   ```
+   > A página principal da landing page será carregada
+
+
+## 💻 Funcionalidades Principais
+
+
+## 📝 CHECKLIST:
+
+[Checklist](/docs/SIAPESQ/CHECKPOINT.MD)
+
+## 📝 DESAFIO:
+
+[Desafio](/docs/SIAPESQ/DESAFIO.MD)
+
+## 📝 Documentação:
+
+[Documentação_do_Projeto](/docs/PesquIA/DOCS.MD)
+
+## 📝 Autor
+
+- **jvras**
+
+## 📜 Licença
+
+Este projeto ainda não possui licença definida.
+
+## 📖 Documentação principais consultadas:
+
+[Next.js 15](https://nextjs.org/docs/getting-started)
+
+[Next.js caching](https://nextjs.org/docs/app/building-your-application/caching)
+
+[Tanstack](https://tanstack.com/)
+
+[React-hook-forms](https://react-hook-form.com/)
+
+[zod](https://zod.dev/)
+
+
