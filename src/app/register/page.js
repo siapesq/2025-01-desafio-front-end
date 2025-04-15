@@ -237,23 +237,17 @@ export default function RegisterPage() {
             </div>
             
             <div className="flex items-center">
-              <input 
-                id="terms" 
-                name="termsAccepted" 
-                type="checkbox"
-                onChange={handleChange}
-                className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
-              />
-              <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
-                Eu concordo com os{' '}
-                <Link href="/terms" className="text-green-600 hover:text-green-500 font-medium">
-                  Termos de Serviço
-                </Link>
-                {' '}e{' '}
-                <Link href="/privacy" className="text-green-600 hover:text-green-500 font-medium">
-                  Política de Privacidade
-                </Link>
-              </label>
+            <input 
+              id="terms" 
+              name="termsAccepted" 
+              type="checkbox"
+              onChange={handleChange}
+              className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+            />
+            <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
+              Eu concordo com os <span className="font-medium text-green-600">Termos de Serviço</span> e  
+              <span className="font-medium text-green-600"> Política de Privacidade</span>
+            </label>
             </div>
             
             <button 
