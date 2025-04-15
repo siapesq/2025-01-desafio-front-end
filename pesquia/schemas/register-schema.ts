@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 
-export const formSchema = z
+export const RegisterformSchema = z
   .object({
     name: z.string().min(2, {
       message: "O nome deve ter pelo menos 2 caracteres.",
@@ -42,4 +42,4 @@ export const formSchema = z
     },
   )
 
-export type FormValues = z.infer<typeof formSchema>
+export type RegisterFormValues = z.infer<typeof RegisterformSchema>

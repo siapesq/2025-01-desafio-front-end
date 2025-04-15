@@ -13,7 +13,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
-import { formSchema, FormValues } from "@/schemas/register-schema"
+import { RegisterformSchema, RegisterFormValues } from "@/schemas/register-schema"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AlertCircle } from "lucide-react"
 import { signIn } from "next-auth/react"
@@ -25,8 +25,8 @@ export function RegisterForm() {
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
 
-  const form = useForm<FormValues>({
-      resolver: zodResolver(formSchema) as any,
+  const form = useForm<RegisterFormValues>({
+      resolver: zodResolver(RegisterformSchema) as any,
       defaultValues: {
         name: "",
         email: "",
@@ -45,7 +45,7 @@ export function RegisterForm() {
     name: "isBusinessOwner",
   })
 
-  async function onSubmit(data: FormValues) {
+  async function onSubmit(data: RegisterFormValues) {
     setIsLoading(true)
     setError(null)
 
