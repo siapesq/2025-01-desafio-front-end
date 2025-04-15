@@ -72,6 +72,7 @@ As tecnologias utilizadas são:
         ├── 📁components/
         │   ├── auth/
         │   │   └── ⚛ login-form.tsx
+        |   |   └── ⚛ register-form.tsx
         │   └── ui/
         │       ├── ⚛ button.tsx
         ├── 📁lib/
@@ -86,6 +87,7 @@ As tecnologias utilizadas são:
         │   └── providers.tsx
         └── 📁schemas/
             └── 🇹 login-schema.ts
+            └── 🇹 register-schema.ts
 ```
 
 ## Autenticação e Segurança
