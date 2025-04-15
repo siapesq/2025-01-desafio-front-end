@@ -1,0 +1,36 @@
+import axios from 'axios';
+
+//TODO: usar ambos com o usequery...
+
+
+//TODO: Formato Esperado da validação para o cep:
+// const cepSchema = z.string().regex(/^\d{5}-?\d{3}$/, {
+//     message: "CEP inválido. Use o formato 12345678 ou 12345-678."
+// });
+
+export const fetchAddressByCep = async (cep: string) => {
+    try{
+    const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+    return response.data;
+    }catch (error) {
+    console.error('Erro ao consultar o CEP:', error);
+    throw error;
+    }
+};
+
+
+//TODO: Formato Esperado da validação para o cnpj:
+// Esse regex valida tanto o CNPJ com formatação ("11.222.333/0001-81") quanto sem formatação ("11222333000181")
+// const cnpjSchema = z.string().regex(/^(\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2})$/, {
+//     message: "CNPJ inválido. Use o formato 11222333000181 ou 11.222.333/0001-81."
+// });
+
+export const fetchCompanyDataByCnpj = async (cnpj: string) => {
+    try {
+      const response = await axios.get(`https://brasilapi.com.br/api/cnpj/v1/${cnpj}`);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao consultar o CNPJ:', error);
+      throw error;
+    }
+};
