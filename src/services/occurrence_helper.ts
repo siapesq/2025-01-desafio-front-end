@@ -1,11 +1,11 @@
 export function formatDate(date: string) {
-    if (date == undefined) return ''
+    if (date == undefined) return '--/--/----'
     const formated = date.slice(0, 10).split('-').reverse().join('/');
     return formated;
 }
 
 export function formatTime(time: string) {
-    if (time == undefined) return ''
+    if (time == undefined) return '--:--'
     const formated = time.split(':').slice(0,2).join(':')
     return formated
 }
@@ -14,6 +14,11 @@ export function formatName(sName: string) {
     if (sName == undefined) return ''
     const formated = sName.split(' ').slice(0,2).join(' ').replaceAll(',', '');
     return formated;
+}
+
+export function validateName(name: string) {
+    if (name.length > 50) return '---'
+    else return name
 }
 
 export function formatPlace(country: string, continent: string) {

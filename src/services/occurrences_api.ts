@@ -28,7 +28,6 @@ export type OccurrenceDetail = {
     taxonomicStatus: string,
     continent: string,
     country: string
-
 }
 
 export async function GetOccurrences(limit: number) : Promise<Occurrence[]> {

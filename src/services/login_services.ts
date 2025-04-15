@@ -16,6 +16,6 @@ export async function signUp(formData: FormData) {
 export async function signIn(formData: FormData) {
     // log in code
 
-    revalidatePath('/login')
-    redirect('/home')
+    redirect('/home');
+    // return 'Passed'
 }
