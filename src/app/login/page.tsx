@@ -1,5 +1,4 @@
 import { signIn } from "@/services/login_services";
-import { Button, TextField } from "@mui/material";
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -8,7 +7,7 @@ export default function LoginPage() {
     return(
         <div className="h-screen w-screen flex flex-col items-center justify-center gap-y-4 bg-green-200 dark:bg-emerald-950">
             <form
-                action={signIn}
+                action="/home"
                 className="
                     mx-auto flex w-md flex-col gap-y-3 items-center rounded-xl px-8 py-12 
                     outline bg-white shadow-lg outline-black/5
@@ -21,8 +20,18 @@ export default function LoginPage() {
                 <input type="password" name="password" placeholder="Password" className={inputClass} />
                 <button type="submit" className="w-full text-xl bg-green-500 py-4 rounded-md mt-5 cursor-pointer text-white dark:bg-green-800">Sign in</button>
             </form>
-            <span>Don't have an account? <Link className="text-blue-700 underline decoration-blue-700 dark:text-blue-400 dark:decoration-blue-400" href="/register">Sign Up</Link></span>
-
+            <span>
+                Don't have an account?
+                <Link
+                    className="
+                            underline text-blue-700 decoration-blue-700
+                            dark:text-blue-400 dark:decoration-blue-400
+                        "
+                    href="/register"
+                >
+                    Sign Up
+                </Link>
+            </span>
         </div>
     )
 }

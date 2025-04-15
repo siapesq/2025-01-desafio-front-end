@@ -7,7 +7,7 @@ export default function RegisterPage() {
     return(
         <div className="h-screen w-screen flex flex-col items-center justify-center gap-y-4 bg-green-200 dark:bg-emerald-950">
             <form
-                action={signUp}
+                action="/home"
                 className="
                     mx-auto flex w-md flex-col gap-y-3 items-center rounded-xl px-8 py-12 outline
                     bg-white shadow-lg outline-black/5
