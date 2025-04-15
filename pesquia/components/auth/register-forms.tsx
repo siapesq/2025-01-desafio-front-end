@@ -3,9 +3,8 @@
 import { useState } from "react"
 import { useForm, useWatch } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useRouter } from "next/navigation"
-
 import { Loader2 } from "lucide-react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
@@ -13,70 +12,85 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
-import { RegisterformSchema, RegisterFormValues } from "@/schemas/register-schema"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AlertCircle } from "lucide-react"
-import { signIn } from "next-auth/react"
+import type { z } from "zod"
+import { RegisterformSchema, RegisterFormValues } from "@/schemas/register-schema"
+import { register } from "@/actions/register/register"
 
-
+type FormValues = z.infer<typeof RegisterformSchema>
 
 export function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
+  const searchParams = useSearchParams()
+  // const callbackUrl = searchParams?.get("callbackUrl") || "/dashboard"
 
   const form = useForm<RegisterFormValues>({
-      resolver: zodResolver(RegisterformSchema) as any,
-      defaultValues: {
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        isBusinessOwner: false,
-        companyName: "",
-        cnpj: "",
-        companyAddress: "",
-        companyCep: "",
-      },
-    })
+    resolver: zodResolver(RegisterformSchema) as any,
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      isBusinessOwner: false,
+      companyName: "",
+      cnpj: "",
+      companyAddress: "",
+      companyCep: "",
+    },
+  })
 
   const isBusinessOwner = useWatch({
     control: form.control,
     name: "isBusinessOwner",
   })
 
-  async function onSubmit(data: RegisterFormValues) {
+  async function onSubmit(data: FormValues) {
     setIsLoading(true)
     setError(null)
 
     try {
+      const result = await register(data)
+
+      if (result.error) {
+        setError(result.error)
+        toast.error("Falha no cadastro", {
+          description: result.error,
+        })
+        setIsLoading(false)
+        return
+      }
+
+      toast.success("Cadastro realizado com sucesso!", {
+        description: "Você será redirecionado para a página inicial.",
+      })
+
+      // Fixme: o login automático não está funcionando corretamente
+      // ⨯ [TypeError: Function.prototype.apply was called on #<Object>, which is an object and not a function]
+      /*
       const response = await signIn("credentials", {
-        action: "register",
-        name: data.name,
         email: data.email,
         password: data.password,
-        isBusinessOwner: data.isBusinessOwner,
-        companyName: data.isBusinessOwner ? data.companyName : undefined,
-        cnpj: data.isBusinessOwner ? data.cnpj : undefined,
-        companyAddress: data.isBusinessOwner ? data.companyAddress : undefined,
         redirect: false,
       })
 
       if (response?.error) {
-        setError(response.error)
-        toast.error("Falha no cadastro", {
-          description: response.error || "Ocorreu um erro durante o cadastro. Tente novamente.",
+        toast.warning("Cadastro realizado, mas não foi possível fazer login automático", {
+          description: "Por favor, faça login manualmente.",
         })
+        router.push(`/auth/login`)
       } else {
-        toast.success("Cadastro realizado com sucesso!", {
+        toast.success("Login realizado com sucesso!", {
           description: "Você será redirecionado para o dashboard.",
         })
-
-        // Redirecionamento após registro bem-sucedido
-        // O Auth.js deve redirecionar automaticamente para a callbackUrl,
-        router.push(response?.url || "/dashboard")
+        router.push(callbackUrl)
         router.refresh()
       }
+      */
+
+      router.push("/")
     } catch (error) {
       console.error("Register error:", error)
       setError(error instanceof Error ? error.message : "Ocorreu um erro inesperado")
@@ -91,7 +105,7 @@ export function RegisterForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-      {error && (
+        {error && (
           <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>Erro no cadastro</AlertTitle>
@@ -208,7 +222,7 @@ export function RegisterForm() {
                 </FormItem>
               )}
             />
-            
+
             {/* TODO: implementar o usewatch e o usequery com a api de cep */}
             <FormField
               control={form.control}

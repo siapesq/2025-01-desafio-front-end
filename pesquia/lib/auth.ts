@@ -1,11 +1,16 @@
-import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import bcryptjs from "bcryptjs";
+import { JWT } from "next-auth/jwt";
+import { Session } from "next-auth";
 import { prisma } from "./db";
 
 
 export const authOptions = {
   adapter: PrismaAdapter(prisma),
+  session: {
+    strategy: "jwt" as const,
+  },
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -14,21 +19,57 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-        });
-        //TODO: implementar Hash da senha e comparar com a do banco de dados
-        if (user && user.password === credentials.password) {
-          return user;
+        if (!credentials?.email || typeof credentials.email !== 'string' || !credentials?.password || typeof credentials.password !== 'string') {
+          return null;
         }
-        return null;
+        const { password } = credentials;
+
+        try {
+          const user = await prisma.user.findUnique({
+            where: { email: credentials.email },
+          });
+
+          if (!user) {
+            return null;
+          }
+
+          const isPasswordValid = await bcryptjs.compare(password, user.password as string);
+
+          if (!isPasswordValid) {
+            return null;
+          }
+
+          return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            // role: user.role, // TODO: implementar role
+          };
+        } catch (error) {
+          console.error("Erro na autenticação:", error);
+          return null;
+        }
       },
     }),
-    //TODO: implementar o google provedor de autenticação (Google)
   ],
   pages: {
     signIn: "/auth/login",
+    error: "/auth/error",
+  },
+  callbacks: {
+    async jwt({ token, user }: { token: JWT; user: any }) {
+      if (user) {
+        token.id = user.id;
+        // token.role = user.role; // TODO: implementar role
+      }
+      return token;
+    },
+    async session({ session, token }: { session: Session; token: JWT }) {
+      if (token && session.user) {
+        session.user.id = token.id as string;
+        // session.user.role = token.role as string; // TODO: implementar role
+      }
+      return session;
+    },
   },
 };
-
-export default NextAuth(authOptions);

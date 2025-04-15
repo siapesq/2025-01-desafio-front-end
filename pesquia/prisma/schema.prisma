@@ -21,6 +21,7 @@ model User {
   email         String          @unique
   emailVerified DateTime?
   image         String?
+  password      String?
   enterprise    enterprise[]
   accounts      Account[]
   sessions      Session[]
@@ -72,16 +73,16 @@ model VerificationToken {
  
 
 model enterprise {
-  id            String          @id @default(cuid())
-  userId        String
-  name          String
-  cnpj          String
-  email         String?
-  phone         String?
-  address       String
-  cidade        String?
-  city          String?
-  cep           String
+  id              String          @id @default(cuid())
+  userId          String
+  name            String
+  cnpj            String
+  emailcommercial String?
+  phone           String?
+  address         String
+  cidade          String?
+  city            String?
+  cep             String
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   
