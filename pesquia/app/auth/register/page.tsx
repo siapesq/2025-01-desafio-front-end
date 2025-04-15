@@ -4,9 +4,9 @@ import Link from "next/link"
 
 
 export const metadata: Metadata = {
-  title: "Cadastro",
-  description: "Crie sua conta",
-}
+  title: "Cadastro - PesquIA",
+  description: "Pagina de Cadastro do sistema pesquIA",
+};
 
 export default function RegisterPage() {
   return (

@@ -7,8 +7,7 @@ import Link from "next/link"
 export const metadata: Metadata = {
     title: "Login - PesquIA",
     description: "Pagina de login do sistema pesquIA",
-  
-  };
+};
 
 export default function LoginPage() {
     return (
