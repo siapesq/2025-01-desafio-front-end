@@ -1,9 +1,8 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "./db";
 
-const prisma = new PrismaClient();
 
 export const authOptions = {
   adapter: PrismaAdapter(prisma),
@@ -18,12 +17,14 @@ export const authOptions = {
         const user = await prisma.user.findUnique({
           where: { email: credentials.email },
         });
+        //TODO: implementar Hash da senha e comparar com a do banco de dados
         if (user && user.password === credentials.password) {
           return user;
         }
         return null;
       },
     }),
+    //TODO: implementar o google provedor de autenticação (Google)
   ],
   pages: {
     signIn: "/auth/login",
