@@ -1,6 +1,3 @@
-<div align="center">  
-  <img src="https://github.com/user-attachments/assets/2acc5cab-7ec9-4cc6-a3fc-1fe80eceee73" alt="logo" style="width:100px"></img>
-</div>
 
 ## Desafio Estagiarios Frontend
 
@@ -45,3 +42,4 @@ Otimize o carregamento dos dados da API para melhorar a performance.
 
 Utilize animações e interações sutis para tornar a interface mais envolvente.
     
+>>>>>>> upstream/main
