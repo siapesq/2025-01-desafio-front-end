@@ -41,7 +41,7 @@ export default function OccurrenceDetails(
                         <p>Encontrado por: {validateName(dets.identifiedBy)}</p>
                         <p>Em: {place}</p>
                         <p>Estado: {dets.taxonomicStatus}</p>
-                        <p className="absolute top-15 right-3 md:top-auto md:bottom-3 md:left-3 italic text-gray-500 dark:text-gray-300">{formatDate(dets.eventDate)}, {formatTime(dets.eventTime)}</p>
+                        <p className="absolute top-15 right-3 md:top-auto md:bottom-0 md:left-3 italic text-gray-500 dark:text-gray-300">{formatDate(dets.eventDate)}, {formatTime(dets.eventTime)}</p>
                     </div>
                     <div className="
                             float-right h-full w-auto p-5 flex flex-col justify-between

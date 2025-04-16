@@ -17,7 +17,7 @@ export default function OccurrenceDetailsLoading() {
                         <Skeleton variant="text" className="text-2xl dark:!bg-gray-500/50" />
                         <Skeleton variant="text" className="text-2xl dark:!bg-gray-500/50" />
                         <Skeleton variant="text" className="text-2xl dark:!bg-gray-500/50" />
-                        <Skeleton variant="text" className="text-2xl absolute !hidden md:block bottom-3 left-3 px-15 dark:!bg-gray-500/50" />
+                        <Skeleton variant="text" className="text-2xl absolute !hidden md:!block bottom-3 left-3 px-15 dark:!bg-gray-500/50" />
                     </div>
                     <Skeleton
                         variant="rectangular"
