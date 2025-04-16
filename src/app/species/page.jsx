@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search, ArrowRight, Loader2 } from "lucide-react";
+import { Search, ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import Footer from "../../components/footer";
 import { getSpeciesByName } from "../../services/speciesService";
 import { isAuthenticated } from "../../services/authService";
-import Navbar from "@/components/navbar";
+import Navbar from "../../components/navbar";
 
 export default function SpeciesList() {
   const router = useRouter();
@@ -24,12 +24,11 @@ export default function SpeciesList() {
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(true)
     const kingdomFromStorage = localStorage.getItem("kingdomItem");
     const speciesFromStorage = localStorage.getItem("specieItem");
 
     if (kingdomFromStorage) setKingdom(kingdomFromStorage);
-
     if (speciesFromStorage) {
       try {
         const parsedSpecies = JSON.parse(speciesFromStorage);
@@ -39,28 +38,46 @@ export default function SpeciesList() {
         setSpeciesList([]);
       }
     }
-
     setIsLoading(false);
-  }, []);
+  }, [])
 
   useEffect(() => {
-    if (!searchTerm.trim()) return;
-
     const delayDebounce = setTimeout(async () => {
       setIsLoading(true);
       try {
-        const results = await getSpeciesByName(searchTerm);
-        setSpeciesList(results);
+        if (searchTerm.trim()) {
+          const results = await getSpeciesByName(searchTerm);
+
+          if (kingdom) {
+            const filteredResults = results.filter(
+              (species) => (species.kingdom || "").toLowerCase() === kingdom.toLowerCase(),
+            )
+            setSpeciesList(filteredResults);
+          } else {
+            setSpeciesList(results);
+          }
+        } else {
+          const speciesFromStorage = localStorage.getItem("specieItem");
+          if (speciesFromStorage) {
+            try {
+              const parsedSpecies = JSON.parse(speciesFromStorage);
+              setSpeciesList(parsedSpecies);
+            } catch (e) {
+              console.error("Erro ao analisar dados de espécies:", e);
+              setSpeciesList([]);
+            }
+          }
+        }
         setCurrentPage(1);
       } catch (error) {
         console.error("Erro ao buscar espécies:", error);
       } finally {
         setIsLoading(false);
       }
-    }, 300);
+    }, 300)
 
     return () => clearTimeout(delayDebounce);
-  }, [searchTerm]);
+  }, [searchTerm, kingdom]);
 
   const initialIndex = (currentPage - 1) * itemsPerPage;
   const paginatedSpecies = speciesList.slice(initialIndex, initialIndex + itemsPerPage);
@@ -71,10 +88,10 @@ export default function SpeciesList() {
       Animalia: "bg-amber-100 text-amber-800 border-amber-200",
       Plantae: "bg-green-100 text-green-800 border-green-200",
       Fungi: "bg-purple-100 text-purple-800 border-purple-200",
-      Protozoa: "bg-blue-100 text-blue-800 border-blue-200",
+      Protista: "bg-blue-100 text-blue-800 border-blue-200",
       Bacteria: "bg-yellow-100 text-yellow-800 border-yellow-200",
       Archaea: "bg-red-100 text-red-800 border-red-200",
-    };
+    }
 
     return colors[kingdomName] || "bg-gray-100 text-gray-800 border-gray-200";
   }
@@ -85,6 +102,14 @@ export default function SpeciesList() {
 
       <main className="flex-grow py-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
+          <button
+            onClick={() => router.push("/dashboard")}
+            className="mb-6 flex items-center text-green-700 hover:text-green-600 transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4 mr-1" />
+            Voltar
+          </button>
+
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-4">
               {kingdom ? `Espécies do Reino ${kingdom}` : "Catálogo de Espécies"}
@@ -94,7 +119,6 @@ export default function SpeciesList() {
             </p>
           </div>
 
-          {/* Search Bar */}
           <div className="relative max-w-2xl mx-auto mb-8">
             <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-green-500 focus-within:border-transparent bg-white">
               <div className="pl-4">
@@ -102,7 +126,7 @@ export default function SpeciesList() {
               </div>
               <input
                 type="text"
-                placeholder="Busque pelo nome comum ou nome científico..."
+                placeholder="Busque pelo nome científico..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full py-3 px-4 outline-none text-gray-700"
@@ -126,7 +150,9 @@ export default function SpeciesList() {
               </p>
               {searchTerm && (
                 <button
-                  onClick={() => setSearchTerm("")}
+                  onClick={() => {
+                    setSearchTerm("")
+                  }}
                   className="px-4 py-2 text-sm text-green-700 hover:text-green-800 font-medium"
                 >
                   Limpar busca
@@ -138,13 +164,13 @@ export default function SpeciesList() {
           {!isLoading && speciesList.length > 0 && (
             <ul className="space-y-4">
               {paginatedSpecies.map((species) => {
-                const portugueseName = species.vernacularNames?.find((item) => item.language === "por");
+                const portugueseName = species.vernacularNames?.find((item) => item.language === "por")
                 const commonName = portugueseName
                   ? portugueseName.vernacularName
-                  : species.vernacularNames?.find((item) => item.language === "eng")?.vernacularName;
+                  : species.vernacularNames?.find((item) => item.language === "eng")?.vernacularName
 
-                const kingdomName = species.kingdom || kingdom;
-                const kingdomColorClass = getKingdomColor(kingdomName);
+                const kingdomName = species.kingdom || kingdom
+                const kingdomColorClass = getKingdomColor(kingdomName)
 
                 return (
                   <li
@@ -160,26 +186,20 @@ export default function SpeciesList() {
                                 {kingdomName}
                               </span>
                             )}
-                            {species.family && (
-                              <span className="text-xs text-gray-500">
-                                Família: {species.family}
-                              </span>
-                            )}
+                            {species.family && <span className="text-xs text-gray-500">Família: {species.family}</span>}
                           </div>
                           <h2 className="text-lg font-semibold text-gray-900">
                             {species.scientificName || "Nome científico desconhecido"}
                           </h2>
                           {commonName && <p className="text-gray-600">Nome comum: {commonName}</p>}
                           {species.taxonomicStatus && (
-                            <p className="text-sm text-gray-500 mt-1">
-                              Status taxonômico: {species.taxonomicStatus}
-                            </p>
+                            <p className="text-sm text-gray-500 mt-1">Status taxonômico: {species.taxonomicStatus}</p>
                           )}
                         </div>
                         <button
                           onClick={() => {
-                            localStorage.setItem("specieId", species.key);
-                            router.push("/species/view");
+                            localStorage.setItem("specieId", species.key)
+                            router.push("/species/view")
                           }}
                           className="flex items-center justify-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 whitespace-nowrap"
                         >
@@ -189,7 +209,7 @@ export default function SpeciesList() {
                       </div>
                     </div>
                   </li>
-                );
+                )
               })}
             </ul>
           )}
@@ -234,5 +254,6 @@ export default function SpeciesList() {
 
       <Footer />
     </div>
-  );
+  )
 }
+
