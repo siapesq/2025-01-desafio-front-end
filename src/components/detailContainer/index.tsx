@@ -24,6 +24,7 @@ export default function DetailContainer() {
                     absolute left-4 top-4 p-3 rounded-full
                     outline bg-white shadow-lg outline-black/5
                     dark:bg-gray-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10
+                    z-2
                 "
                 href="/home"
             >

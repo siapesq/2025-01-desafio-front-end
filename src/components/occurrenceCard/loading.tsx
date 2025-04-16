@@ -5,7 +5,7 @@ export default function OcurrenceCardLoading() {
     return (
         <div 
             className="
-                grow shrink-0 basis-[15%] mx-3
+                grow shrink-0 basis-[40%] md:basis-[20%] lg:basis-[15%] mx-3
                 rounded-md overflow-hidden
                 outline bg-white shadow-lg outline-black/5
                 dark:bg-gray-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10

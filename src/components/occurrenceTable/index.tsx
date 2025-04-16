@@ -6,7 +6,7 @@ import Loading from '@/components/occurrenceTableGroup/loading';
 
 export default function OccurrenceTable() {
     const [occurs, setOccurs] = useState<Occurrence[]>([])
-    const [lim, setLim] = useState(20)
+    const [lim, setLim] = useState(0)
     const loading = useRef(true)
 
     useEffect(() => {
