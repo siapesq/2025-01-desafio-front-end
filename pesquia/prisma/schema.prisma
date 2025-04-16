@@ -14,24 +14,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
- 
 model User {
-  id            String          @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String?
-  email         String          @unique
+  email         String    @unique
   emailVerified DateTime?
   image         String?
   password      String?
-  enterprise    enterprise[]
+  enterprises   Enterprise[]
   accounts      Account[]
   sessions      Session[]
 
-
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
- 
+
 model Account {
   userId            String
   type              String
@@ -44,48 +41,110 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
- 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@id([provider, providerAccountId])
 }
- 
+
 model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
- 
+
 model VerificationToken {
   identifier String
   token      String
   expires    DateTime
- 
+
   @@id([identifier, token])
 }
- 
 
-model enterprise {
-  id              String          @id @default(cuid())
+model Enterprise {
+  id              String    @id @default(cuid())
   userId          String
   name            String
   cnpj            String
-  emailcommercial String?
+  emailCommercial String?
   phone           String?
   address         String
-  cidade          String?
   city            String?
   cep             String
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  products   Product[]
+  sales      Sale[]
+
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+}
+
+model Partner {
+  id             String    @id @default(cuid())
+  representative String
+  name           String
+  cnpj           String?
+  email          String
+  phone          String
+  address        String
+  city           String?
+  cep            String
+
+  sales          Sale[]
+
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+model Product {
+  id           String           @id @default(cuid())
+  enterpriseId String?
+  name         String
+  description  String?
+  price        Decimal
+
+  enterprise   Enterprise?       @relation(fields: [enterpriseId], references: [id], onDelete: Cascade)
+  saleItems    SaleProduct[]
+
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+}
+
+model Sale {
+  id           String           @id @default(cuid())
+  userId       String
+  enterpriseId String
+  partnerId    String
+
+  name         String?
+  totalValue   Decimal?
+
+
+  enterprise   Enterprise       @relation(fields: [enterpriseId], references: [id], onDelete: Cascade)
+  partner      Partner          @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  items        SaleProduct[]
+
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+}
+
+model SaleProduct {
+  saleId      String
+  productId   String
+  quantity    Int
+  unitPrice   Decimal
+
+  sale        Sale     @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([saleId, productId])
 }
