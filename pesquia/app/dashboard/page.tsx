@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import { DashboardCards } from "@/components/dashboard/cards"
-// import { DashboardOverview } from "@/components/dashboard/overview"
-// import { RecentOrders } from "@/components/dashboard/recent-orders"
-// import { AiInsights } from "@/components/dashboard/ai-insights"
+import { DashboardOverview } from "@/components/dashboard/overview"
+import { RecentOrders } from "@/components/dashboard/recent-orders"
+import { AiInsights } from "@/components/dashboard/ai-insights"
 import { auth } from "@/lib/auth"
 
 
@@ -22,10 +22,10 @@ export default async function DashboardPage() {
       </div>
       <DashboardCards />
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {/* <DashboardOverview /> */}
-        {/* <AiInsights /> */}
+        <DashboardOverview />
+        <AiInsights />
       </div>
-      {/* <RecentOrders /> */}
+      <RecentOrders />
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
-// import { AiDashboard } from "@/components/ai/ai-dashboard"
-// import { AiSuggestions } from "@/components/ai/ai-suggestions"
-// import { AiSettings } from "@/components/ai/ai-settings"
+import { AiDashboard } from "@/components/ai/ai-dashboard"
+import { AiSuggestions } from "@/components/ai/ai-suggestions"
+import { AiSettings } from "@/components/ai/ai-settings"
 
 export const metadata: Metadata = {
   title: "Análise IA | pesquIA",
@@ -17,10 +17,9 @@ export default function AiPage() {
       </p>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {/* TODO: Em construção */}
-        {/* <AiDashboard />
+        <AiDashboard />
         <AiSuggestions />
-        <AiSettings /> */}
+        <AiSettings />
       </div>
     </div>
   )

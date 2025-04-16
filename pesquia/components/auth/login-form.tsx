@@ -47,7 +47,7 @@ export function LoginForm() {
         })
 
         router.push("/dashboard")
-        router.refresh() // Atualiza a página para refletir o novo estado de autenticação (TODO: verificar se é a melhor pratica)
+        router.refresh()
       }
     } catch (error) {
       toast.error("Erro ao fazer login", {

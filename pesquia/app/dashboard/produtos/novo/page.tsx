@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
-// import { ProductForm } from "@/components/products/product-form"
+import { ProductForm } from "@/components/products/product-form"
 
 export const metadata: Metadata = {
   title: "Novo Produto | pesquIA",
@@ -20,8 +20,7 @@ export default function NewProductPage() {
         </Link>
         <h1 className="text-3xl font-bold">Novo Produto</h1>
       </div>
-      {/* TODO: Em construção */}
-      {/* <ProductForm /> */}
+      <ProductForm />
     </div>
   )
 }

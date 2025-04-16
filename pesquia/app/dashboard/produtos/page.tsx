@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-// import { ProductList } from "@/components/products/product-list"
-// import { ProductFilters } from "@/components/products/product-filters"
+import { ProductList } from "@/components/products/product-list"
+import { ProductFilters } from "@/components/products/product-filters"
 
 export const metadata: Metadata = {
   title: "Produtos | pesquIA",
@@ -18,9 +18,8 @@ export default function ProductsPage() {
           <Button>Adicionar Produto</Button>
         </Link>
       </div>
-      {/* TODO: Em construção */}
-      {/* <ProductFilters />
-      <ProductList /> */}
+      <ProductFilters />
+      <ProductList />
     </div>
   )
 }

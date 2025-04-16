@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import { getRecentSales } from "@/lib/db";
 import { generateInsights } from "@/lib/gemini";
 import { RecentSales } from './utils';
 
