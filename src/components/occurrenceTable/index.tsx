@@ -31,7 +31,7 @@ export default function OccurrenceTable() {
 
     return (
         <div
-            className="h-screen overflow-y-scroll overflow-x-hidden"
+            className="grow h-full overflow-y-scroll overflow-x-hidden"
             onScroll={handleScroll}
         >
             <OccurrenceTableGroup occurrences={occurs} />
