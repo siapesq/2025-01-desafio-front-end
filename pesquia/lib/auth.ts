@@ -11,6 +11,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
   session: {
     strategy: "jwt" as const,
   },
+  secret: process.env.AUTH_SECRET,
   providers: [
     CredentialsProvider({
       name: "Credentials",
