@@ -11,9 +11,9 @@ export default function OcurrenceCardLoading() {
                 dark:bg-gray-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10
             "
         >
-            <Skeleton variant="rectangular" className="w-full py-25" />
+            <Skeleton variant="rectangular" className="w-full !h-50" />
             <div className="p-3">
-                <Skeleton variant="text" className="text-md mb-2"></Skeleton>
+                <Skeleton variant="text" className="text-md !mb-2"></Skeleton>
                 <Skeleton variant="text" className="text-sm float-left px-7"></Skeleton>
                 <Skeleton variant="text" className='text-sm float-right px-3'></Skeleton>
                 <div className="clear-both"></div>

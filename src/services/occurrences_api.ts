@@ -30,8 +30,8 @@ export type OccurrenceDetail = {
     country: string
 }
 
-export async function GetOccurrences(limit: number) : Promise<Occurrence[]> {
-    const url = `https://api.gbif.org/v1/occurrence/search?kingdomKey=1&kingdomKey=3&kingdomKey=5&kingdomKey=6&kingdomKey=7&mediaType=StillImage&limit=${limit.toString()}`;
+export async function GetOccurrences(offset: number) : Promise<Occurrence[]> {
+    const url = `https://api.gbif.org/v1/occurrence/search?kingdomKey=1&kingdomKey=3&kingdomKey=5&kingdomKey=6&kingdomKey=7&mediaType=StillImage&limit=20&offset=${offset.toString()}`;
     const response = fetch(url)
         .then((res) => res.json())
         .then((result) => 

@@ -19,7 +19,8 @@ export default function DetailContainer() {
     return (
         <div className="h-screen w-screen bg-green-200 dark:bg-emerald-950"
         >
-            <Link className="
+            <Link
+                className="
                     absolute left-4 top-4 p-3 rounded-full
                     outline bg-white shadow-lg outline-black/5
                     dark:bg-gray-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10
