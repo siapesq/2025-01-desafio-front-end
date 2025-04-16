@@ -24,7 +24,7 @@ export function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
-  const searchParams = useSearchParams()
+  // const searchParams = useSearchParams()
   // const callbackUrl = searchParams?.get("callbackUrl") || "/dashboard"
 
   const form = useForm<RegisterFormValues>({
@@ -64,7 +64,7 @@ export function RegisterForm() {
       }
 
       toast.success("Cadastro realizado com sucesso!", {
-        description: "Você será redirecionado para a página inicial.",
+        description: "Você será redirecionado para a página de Login.",
       })
 
       // Fixme: o login automático não está funcionando corretamente
@@ -90,7 +90,7 @@ export function RegisterForm() {
       }
       */
 
-      router.push("/")
+      router.push("/auth/login")
     } catch (error) {
       console.error("Register error:", error)
       setError(error instanceof Error ? error.message : "Ocorreu um erro inesperado")
