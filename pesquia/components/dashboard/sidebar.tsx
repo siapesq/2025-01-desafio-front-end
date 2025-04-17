@@ -20,31 +20,33 @@ const sidebarItems = [
     href: "/dashboard/produtos",
     icon: Package,
   },
-  {
-    title: "Pedidos",
-    href: "/dashboard/pedidos",
-    icon: ShoppingCart,
-  },
-  {
-    title: "Relatórios",
-    href: "/dashboard/relatorios",
-    icon: TrendingUp,
-  },
+  // TODO: em construção
+  // {
+  //   title: "Pedidos",
+  //   href: "/dashboard/pedidos",
+  //   icon: ShoppingCart,
+  // },
+  // {
+  //   title: "Relatórios",
+  //   href: "/dashboard/relatorios",
+  //   icon: TrendingUp,
+  // },
   {
     title: "Análise IA",
     href: "/dashboard/ia",
     icon: Brain,
   },
-  {
-    title: "Usuários",
-    href: "/dashboard/usuarios",
-    icon: Users,
-  },
-  {
-    title: "Configurações",
-    href: "/dashboard/configuracoes",
-    icon: Settings,
-  },
+    // TODO: em construção
+  // {
+  //   title: "Usuários",
+  //   href: "/dashboard/usuarios",
+  //   icon: Users,
+  // },
+  // {
+  //   title: "Configurações",
+  //   href: "/dashboard/configuracoes",
+  //   icon: Settings,
+  // },
 ]
 
 export function DashboardSidebar() {

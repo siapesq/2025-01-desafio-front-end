@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetcher } from "@/lib/api";
-import { Edit, MoreHorizontal, Trash } from "lucide-react";
+import { Edit, MoreHorizontal, Trash, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -92,8 +92,19 @@ export function ProductList() {
     setDialogOpen(false);
   };
 
-  if (isLoading) return <p>Carregando produtos…</p>;
-  if (isError) return <p>Erro: {(error as Error).message}</p>;
+  if (isLoading) return (
+    <div className="flex items-center justify-center py-8">
+      <Loader2 className="animate-spin mr-2 h-5 w-5" />
+      <span>Carregando produtos…</span>
+    </div>
+  );
+  if (isError) return (
+    <div className="flex items-center justify-center text-destructive py-8">
+      <AlertCircle className="mr-2 h-5 w-5" />
+      <span>Erro: {(error as Error).message}</span>
+    </div>
+  );
+
 
   return (
     <Card>
