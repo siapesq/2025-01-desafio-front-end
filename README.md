@@ -1,7 +1,7 @@
 # PesquIA - Desafio SIAPESQ
 
 ## 📖 Sobre o Projeto
-O **pesquIA** é um sistema ERP focado no segmento de pescaria, permitindo o gerenciamento de produtos e operações de compra e venda. Seu diferencial reside na integração com um módulo de inteligência artificial que monitora e analisa os processos, identificando falhas e sugerindo melhorias para otimização contínua dos processos empresariais.
+O **pesquIA** é um sistema ERP focado no segmento de pescaria, permitindo o gerenciamento de produtos e operações de compra e venda.
 
 
 ## 🛠️ Stack Tecnológica Principal
@@ -11,11 +11,8 @@ Este projeto foi desenvolvido utilizando tecnologias modernas para criar uma apl
 - **Next.js**: Framework React para renderização híbrida e otimização de performance
 - **shadcn/UI**: Biblioteca de componentes reutilizáveis e personalizáveis
 - **Auth.js**: Sistema completo de autenticação e gerenciamento de sessões
-- **Google Gemini**: API de inteligência artificial para recursos generativos
 - **TypeScript**: Tipagem estática para desenvolvimento mais seguro
 - **Prisma**: ORM para interação com banco de dados
-
-A combinação destas tecnologias permite uma experiência de usuário fluida com funcionalidades avançadas de IA integradas ao core do sistema.
 
 ### Stack do Projeto
 
@@ -103,6 +100,7 @@ Para rodar o projeto localmente, siga os passos abaixo:
    ```bash
    git clone https://github.com/usuario/repositorio-sample.git
    cd repositorio-sample
+   cd pesquia
    ```
 
 2. Instale as dependências:
@@ -114,13 +112,15 @@ Para rodar o projeto localmente, siga os passos abaixo:
 3. Configure o arquivo `.env` na raiz do projeto com suas credenciais use o arquivo `env-example`
 
 4. Inicie o ambiente de desenvolvimento:
-   ```bash
-   npm run dev
-   ```
-   ou
-   ```bash
-   yarn dev
-   ```
+```bash
+# Gera o cliente do Prisma e apliqua as migrations
+npx prisma generate && npx prisma migrate dev
+
+# Inicie o servidor de desenvolvimento
+npm run dev
+# ou
+yarn dev
+```
 
    > O servidor será iniciado em modo de desenvolvimento com hot-reload
 
@@ -132,6 +132,13 @@ Para rodar o projeto localmente, siga os passos abaixo:
 
 
 ## 💻 Funcionalidades Principais
+
+[landing Page](http://localhost:3000/)
+[login Page](http://localhost:3000/auth/login)
+[Cadastro Page](http://localhost:3000/auth/register)
+[Home Page](http://localhost:3000/dashboard)
+[Crud Products](http://localhost:3000/dashboard/produtos)
+
 
 
 ## 📝 CHECKLIST:
