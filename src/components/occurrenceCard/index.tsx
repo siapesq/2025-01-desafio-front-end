@@ -17,9 +17,9 @@ export default function OcurrenceCard(
         <Link 
             className="
                 grow shrink-0 basis-[40%] md:basis-[20%] lg:basis-[15%] mx-1 lg:mx-3
-                rounded-md overflow-hidden
-                outline bg-white shadow-lg outline-black/5
-                dark:bg-gray-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10
+                rounded-md overflow-hidden transition-shadow
+                outline bg-white shadow-lg outline-black/5 hover:shadow-(--hover-shadow) hover:outline-green-800/50
+                dark:bg-gray-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10 dark:hover:outline-green-400/50
             "
             href={"/details/" + occ.gbifID.toString()}
         >
