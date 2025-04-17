@@ -145,9 +145,9 @@ export function ProductList() {
                       <DropdownMenuLabel>Ações</DropdownMenuLabel>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem asChild>
-                        <Link href={`/dashboard/produtos/${p.id}`}>
+                        {/* <Link href={`/dashboard/produtos/${p.id}`}>
                           Editar
-                        </Link>
+                        </Link> */}
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => handleDelete(p.id)}>
                         Excluir
