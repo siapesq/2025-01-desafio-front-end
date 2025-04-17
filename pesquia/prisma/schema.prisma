@@ -111,6 +111,16 @@ model Product {
   name         String
   description  String?
   price        Decimal
+  sku          String?
+  category     String?
+  stock        Int
+  stockMin     Int?
+  stockMax     Int?
+  // image        String?
+  // imageUrl     String?
+  brand        String?
+  supplier     String?
+
 
   enterprise   Enterprise?       @relation(fields: [enterpriseId], references: [id], onDelete: Cascade)
   saleItems    SaleProduct[]

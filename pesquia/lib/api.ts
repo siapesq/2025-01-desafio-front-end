@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { generateInsights } from "@/lib/gemini";
-import { RecentSales } from './utils';
+// import { RecentSales } from './utils';
 
 //TODO: usar ambos com o usequery...
 
@@ -37,19 +37,29 @@ export const fetchCompanyDataByCnpj = async (cnpj: string) => {
     }
 };
 
-//TODO: Procurar um melhor lugar para colocar
-export async function fetchInsights() {
-  try {
-    const sales = await RecentSales(); 
-    //TODO: ADICIONAR NO FUTURO as informações de insights de produtos e talz
-    if (!sales || sales.length === 0) {
-      return "Nenhuma venda encontrada para gerar insights.";
-    }
-
-    const insights = await generateInsights(sales);
-    return insights;
-  } catch (error) {
-    console.error("Erro ao buscar insights:", error);
-    return "Erro ao gerar insights. Tente novamente mais tarde.";
+//TODO: GENERIC FETCH:
+export async function fetcher<T>(input: RequestInfo, init?: RequestInit): Promise<T> {
+  const res = await fetch(input, { ...init, headers: { 'Content-Type': 'application/json' } });
+  if (!res.ok) {
+    const errorBody = await res.json();
+    throw new Error(errorBody?.error || 'Erro na requisição');
   }
+  return res.json();
 }
+
+//TODO: Procurar um melhor lugar para colocar
+// export async function fetchInsights() {
+//   try {
+//     const sales = await RecentSales(); 
+//     //TODO: ADICIONAR NO FUTURO as informações de insights de produtos e talz
+//     if (!sales || sales.length === 0) {
+//       return "Nenhuma venda encontrada para gerar insights.";
+//     }
+
+//     const insights = await generateInsights(sales);
+//     return insights;
+//   } catch (error) {
+//     console.error("Erro ao buscar insights:", error);
+//     return "Erro ao gerar insights. Tente novamente mais tarde.";
+//   }
+// }

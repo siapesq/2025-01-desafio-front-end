@@ -1,11 +1,26 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Edit, MoreHorizontal, Trash } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { useState } from "react";
+import Link from "next/link";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { fetcher } from "@/lib/api";
+import { Edit, MoreHorizontal, Trash } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,8 +28,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Badge } from "@/components/ui/badge"
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
   DialogContent,
@@ -22,79 +37,69 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
+import { toast } from "sonner";
 
-// TODO: Implementar a busca dos produtos no banco de dados
-const products = [
-  {
-    id: "PROD-001",
-    name: "Vara de Pesca Profissional",
-    category: "Varas",
-    price: 299.99,
-    stock: 45,
-    status: "in-stock",
-  },
-  {
-    id: "PROD-002",
-    name: "Molinete Ultra Light",
-    category: "Molinetes",
-    price: 189.9,
-    stock: 32,
-    status: "in-stock",
-  },
-  {
-    id: "PROD-003",
-    name: "Kit Anzóis Especiais",
-    category: "Anzóis",
-    price: 49.9,
-    stock: 120,
-    status: "in-stock",
-  },
-  {
-    id: "PROD-004",
-    name: "Linha Multifilamento 0.30mm",
-    category: "Linhas",
-    price: 79.9,
-    stock: 8,
-    status: "low-stock",
-  },
-  {
-    id: "PROD-005",
-    name: "Isca Artificial Lambari",
-    category: "Iscas",
-    price: 35.5,
-    stock: 0,
-    status: "out-of-stock",
-  },
-]
+type Product = {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  stock: number;
+  status: "in-stock" | "low-stock" | "out-of-stock";
+};
 
 const statusMap = {
   "in-stock": { label: "Em estoque", variant: "default" },
   "low-stock": { label: "Estoque baixo", variant: "warning" },
   "out-of-stock": { label: "Sem estoque", variant: "destructive" },
-} as const
+  "em-analise": { label: "Em análise", variant: "secondary" },
+} as const;
 
 export function ProductList() {
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
-  const [selectedProduct, setSelectedProduct] = useState<string | null>(null)
+  const queryClient = useQueryClient();
+
+  const { data: resp, isLoading, isError, error } = useQuery<{
+    products: Product[];
+  }>({
+    queryKey: ["products"],
+    queryFn: () => fetcher("/api/product"),
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) =>
+      fetcher<void>(`/api/product/${id}`, { method: "DELETE" }),
+    onSuccess: () => {
+      toast.success("Produto excluído com sucesso!");
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+    },
+    onError: (err: any) => {
+      toast.error(`Erro ao excluir: ${err.message}`);
+    },
+  });
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selId, setSelId] = useState<string | null>(null);
 
   const handleDelete = (id: string) => {
-    setSelectedProduct(id)
-    setDeleteDialogOpen(true)
-  }
+    setSelId(id);
+    setDialogOpen(true);
+  };
 
   const confirmDelete = () => {
-    // Aqui implementaria a lógica de exclusão
-    console.log(`Produto ${selectedProduct} excluído`)
-    setDeleteDialogOpen(false)
-    setSelectedProduct(null)
-  }
+    if (selId) deleteMutation.mutate(selId);
+    setDialogOpen(false);
+  };
+
+  if (isLoading) return <p>Carregando produtos…</p>;
+  if (isError) return <p>Erro: {(error as Error).message}</p>;
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>Lista de Produtos</CardTitle>
-        <CardDescription>Gerencie seu catálogo de produtos de pesca</CardDescription>
+        <CardDescription>Gerencie seu catálogo</CardDescription>
       </CardHeader>
       <CardContent>
         <Table>
@@ -110,22 +115,24 @@ export function ProductList() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.map((product) => (
-              <TableRow key={product.id}>
-                <TableCell className="font-medium">{product.id}</TableCell>
-                <TableCell>{product.name}</TableCell>
-                <TableCell>{product.category}</TableCell>
+            {resp!.products.map((p) => (
+              <TableRow key={p.id}>
+                <TableCell className="font-medium">{p.id}</TableCell>
+                <TableCell>{p.name}</TableCell>
+                <TableCell>{p.category}</TableCell>
                 <TableCell>
                   {new Intl.NumberFormat("pt-BR", {
                     style: "currency",
                     currency: "BRL",
-                  }).format(product.price)}
+                  }).format(p.price)}
                 </TableCell>
-                <TableCell>{product.stock}</TableCell>
+                <TableCell>{p.stock}</TableCell>
                 <TableCell>
-                  <Badge variant={statusMap[product.status as keyof typeof statusMap].variant as any}>
-                    {statusMap[product.status as keyof typeof statusMap].label}
-                  </Badge>
+                <Badge
+                  variant={(statusMap[p.status] || statusMap["em-analise"]).variant as any}
+                >
+                  {(statusMap[p.status] || statusMap["em-analise"]).label}
+                </Badge>
                 </TableCell>
                 <TableCell className="text-right">
                   <DropdownMenu>
@@ -138,14 +145,12 @@ export function ProductList() {
                       <DropdownMenuLabel>Ações</DropdownMenuLabel>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem asChild>
-                        <Link href={`/dashboard/produtos/${product.id}`}>
-                          <Edit className="mr-2 h-4 w-4" />
-                          <span>Editar</span>
+                        <Link href={`/dashboard/produtos/${p.id}`}>
+                          Editar
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => handleDelete(product.id)}>
-                        <Trash className="mr-2 h-4 w-4" />
-                        <span>Excluir</span>
+                      <DropdownMenuItem onClick={() => handleDelete(p.id)}>
+                        Excluir
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -155,25 +160,29 @@ export function ProductList() {
           </TableBody>
         </Table>
 
-        <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Confirmar exclusão</DialogTitle>
               <DialogDescription>
-                Tem certeza que deseja excluir este produto? Esta ação não pode ser desfeita.
+                Essa ação não pode ser desfeita.
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>
+              <Button variant="outline" onClick={() => setDialogOpen(false)}>
                 Cancelar
               </Button>
-              <Button variant="destructive" onClick={confirmDelete}>
-                Excluir
+              <Button
+                variant="destructive"
+                onClick={confirmDelete}
+                disabled={deleteMutation.isPending}
+              >
+                {deleteMutation.isPending ? "Excluindo…" : "Excluir"}
               </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
       </CardContent>
     </Card>
-  )
+  );
 }
